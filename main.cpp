@@ -28,6 +28,7 @@
 #include "Object3dCommon.h"
 #include "Object3d.h"
 #include "ModelManager.h"
+#include "PostEffect.h"
 
 
 using namespace Microsoft::WRL;
@@ -817,6 +818,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	input = new Input();
 	input->Initialize(winApp);
 
+
+	//ポストエフェクト
+	PostEffect* postEffect = nullptr;
+	postEffect = new PostEffect();
+	postEffect->Initialize(dxCommon);
 	
 
 	//HANDLE fenceEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
@@ -1363,6 +1369,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// --- 描画前処理 ---
 			dxCommon->PreDraw();
 
+			postEffect->PreDraw();
+
 			// 3Dオブジェクトの描画準備。3Dオブジェクトの描画に共通のグラフィックスコマンドを積む
 			object3dCommon->SetCommonDrawSetting();
 
@@ -1452,6 +1460,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 
+			postEffect->PostDraw(); // 描画先を本来の画面（青色）に変更
+
+			postEffect->Draw();
+
+
 			//commandList->IASetVertexBuffers(0, 1, &vertexBufferViewSprite);
 
 			//commandList->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSprite->GetGPUVirtualAddress());
@@ -1513,7 +1526,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	delete input;
 
-
+	delete postEffect;
 	
 
 	ImGui_ImplDX12_Shutdown();

@@ -11,6 +11,7 @@
 #include "WinApp.h"
 #include "externals/DirectXTex/DirectXTex.h"
 #include <chrono>
+#include "Math.h"
 
 // ComPtrのために名前空間を省略せず記述するために、ここでは using namespace は使わない
 
@@ -38,6 +39,27 @@ public:
 	/// テクスチャファイルの読み込み
 	/// </summary>
 	DirectX::ScratchImage LoadTexture(const std::string& filePath);
+
+	// RenderTexture生成用関数
+	Microsoft::WRL::ComPtr<ID3D12Resource> CreateRenderTextureResource(uint32_t width, uint32_t height, DXGI_FORMAT format, const Math::Vector4& clearColor);
+
+
+	// RTVの特定のインデックスのハンドルを取得
+	D3D12_CPU_DESCRIPTOR_HANDLE GetRTVCPUDescriptorHandle(uint32_t index) const {
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = rtvDescriptorHeap_->GetCPUDescriptorHandleForHeapStart();
+		handle.ptr += (index * rtvDescriptorSize_);
+		return handle;
+	}
+
+	// DSVのハンドルを取得
+	D3D12_CPU_DESCRIPTOR_HANDLE GetDSVCPUDescriptorHandle() const {
+		return dsvDescriptorHeap_->GetCPUDescriptorHandleForHeapStart();
+	}
+
+	// 現在のバックバッファ番号を取得
+	UINT GetBackBufferIndex() const {
+		return swapChain_->GetCurrentBackBufferIndex();
+	}
 
 	// --- リソース転送関数を追加 ---
 /// <summary>
