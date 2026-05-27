@@ -103,6 +103,7 @@ public:
 	void PreDraw();
 	void PostDraw();
 
+
 private:
 
 	WinApp* winApp_ = nullptr;

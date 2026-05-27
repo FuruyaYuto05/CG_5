@@ -1460,7 +1460,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 
-			postEffect->PostDraw(); // 描画先を本来の画面（青色）に変更
+			postEffect->PostDraw(); 
 
 			postEffect->Draw();
 
