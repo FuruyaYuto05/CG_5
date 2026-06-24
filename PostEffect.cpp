@@ -110,9 +110,16 @@ void PostEffect::Initialize(DirectXCommon* dxCommon) {
     // 4. PipelineState の作成
     // ==========================================
   
-    Microsoft::WRL::ComPtr<IDxcBlob> vertexShaderBlob = dxCommon_->CompileShader(L"CopyImage.VS.hlsl", L"vs_6_0");
+    Microsoft::WRL::ComPtr<IDxcBlob> vertexShaderBlob = dxCommon_->CompileShader(
+        L"resources/shaders/Fullscreen.VS.hlsl",
+        L"vs_6_0"
+    );
     assert(vertexShaderBlob != nullptr);
-    Microsoft::WRL::ComPtr<IDxcBlob> pixelShaderBlob = dxCommon_->CompileShader(L"CopyImage.PS.hlsl", L"ps_6_0");
+
+    Microsoft::WRL::ComPtr<IDxcBlob> pixelShaderBlob = dxCommon_->CompileShader(
+        L"resources/shaders/Grayscale.PS.hlsl",
+        L"ps_6_0"
+    );
     assert(pixelShaderBlob != nullptr);
 
     D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc{};
@@ -145,6 +152,8 @@ void PostEffect::Initialize(DirectXCommon* dxCommon) {
     graphicsPipelineStateDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB; // SwapChainと同じフォーマット
     graphicsPipelineStateDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
     graphicsPipelineStateDesc.SampleDesc.Count = 1;
+
+    graphicsPipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
 
     hr = device->CreateGraphicsPipelineState(&graphicsPipelineStateDesc, IID_PPV_ARGS(&pipelineState_));
     assert(SUCCEEDED(hr));

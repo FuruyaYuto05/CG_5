@@ -94,8 +94,9 @@
   <ItemGroup>
     <FxCompile Include="resources\shaders\Object3d.VS.hlsl" />
     <FxCompile Include="resources\shaders\Object3d.PS.hlsl" />
-    <FxCompile Include="CopyImage.PS.hlsl" />
-    <FxCompile Include="CopyImage.VS.hlsl" />
+    <FxCompile Include="resources\shaders\Grayscale.PS.hlsl" />
+    <FxCompile Include="resources\shaders\Fullscreen.PS.hlsl" />
+    <FxCompile Include="resources\shaders\Fullscreen.VS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -181,7 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\Object3d.hlsli" />
-    <None Include="CopyImage.hlsli" />
+    <None Include="resources\shaders\Fullscreen.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CG2.rc">
