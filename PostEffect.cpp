@@ -117,7 +117,7 @@ void PostEffect::Initialize(DirectXCommon* dxCommon) {
     assert(vertexShaderBlob != nullptr);
 
     Microsoft::WRL::ComPtr<IDxcBlob> pixelShaderBlob = dxCommon_->CompileShader(
-        L"resources/shaders/Vignette.PS.hlsl",
+        L"resources/shaders/BoxFilter.PS.hlsl",
         L"ps_6_0"
     );
     assert(pixelShaderBlob != nullptr);

@@ -98,6 +98,7 @@
     <FxCompile Include="resources\shaders\Fullscreen.PS.hlsl" />
     <FxCompile Include="resources\shaders\Fullscreen.VS.hlsl" />
     <FxCompile Include="resources\shaders\Vignette.PS.hlsl" />
+    <FxCompile Include="resources\shaders\BoxFilter.PS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
