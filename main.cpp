@@ -526,6 +526,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// 他のモデルを使う場合はここに追加します
     ModelManager::GetInstance()->LoadModel("axis.obj");
 
+	//フィールド
+	ModelManager::GetInstance()->LoadModel("terrain.obj");
+
 	//Object3d* object3d = new Object3d();
 	//object3d->Initialize(object3dCommon);
 
@@ -542,6 +545,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	object3d_2->SetModel("axis.obj"); // 同じモデルデータを使い回す！
 	object3d_2->SetTranslate({ 2.0f, 0.0f, 0.0f }); // 少し右にずらす
 	object3d_2->SetRotate({ 0.0f, 0.0f, 0.0f });
+
+	//フィールド用オブジェクト
+	Object3d* terrainObj = new Object3d();
+	terrainObj->Initialize(object3dCommon);
+	terrainObj->SetModel("terrain.obj");
+	terrainObj->SetTranslate({ 0.0f, -1.0f, 0.0f });
+	terrainObj->SetRotate({ 0.0f, 0.0f, 0.0f });
 
 	//ウィンドウの×ボタンが押されるまでループ
 	while (true) {
@@ -560,6 +570,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// 更新
 			object3d_1->Update();
 			object3d_2->Update();
+			terrainObj->Update();
 
 			if (input->Pushkey(DIK_0)) {
 				OutputDebugStringA("Hit 0\n");
@@ -696,6 +707,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			// 描画
 			object3d_1->Draw();
 			object3d_2->Draw();
+			terrainObj->Draw();
 
 			// Todo: 全てのObject3d個々の描画
 
@@ -838,6 +850,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	delete object3d_1;
 	delete object3d_2;
+	delete terrainObj;
 
 	delete sprite;
 
